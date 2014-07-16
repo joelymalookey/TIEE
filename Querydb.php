@@ -23,6 +23,10 @@
 	  "<br>";
 	  $assInfo[]=$row['COLLECTIONREF'];
 	  "<br>";
+	  $startInfo[]=$row ['START'];
+	  "<br>";
+	  $stopInfo[]=$row ['STOP'];
+	  "<br>";
 	}
 	mysqli_close($con);
 
@@ -35,6 +39,8 @@
 		var manInfo = <?php echo json_encode($mInfo)?>;
 		var colInfo = <?php echo json_encode($colInfo)?>;
 		var assInfo = <?php echo json_encode($assInfo)?>;
+		var startInfo = <?php echo json_encode($startInfo)?>;
+		var stopInfo = <?php echo json_encode($stopInfo)?>;
 		
 		var divId=0;
 		var resDiv = [];
@@ -49,7 +55,9 @@
 		fNSplit = stripNSplit(fN);
 		fRSplit =stripNSplit(fR);
 		colSplit = stripNSplit(colInfo);
-		assSplit=stripNSplit(assInfo);
+		assSplit= stripNSplit(assInfo);
+		startSplit = stripNSplit(startInfo);
+		stopSplit = stripNSplit(stopInfo);
 		meshArr=new Array();
 		
 		function stripNSplit(stringToSplit){
@@ -78,15 +86,13 @@
 						getTheName="3dfiles\\"+fRSplit[parseInt(this.id)];
 						getTheName = getTheName.substring(0,getTheName.length-7);
 						getTheName=getTheName+indSTLCol[item]+".stl";
-						createMesh(getTheName, function (mesh){
-						console.log(mesh.id);
+						createMesh(getTheName, startSplit[item], function (mesh){
 						scene.add(mesh)});
 					}
 			}
 			else{
 				getTheName="3dfiles\\"+fRSplit[parseInt(this.id)];
-				createMesh(getTheName,function (mesh){
-				console.log(mesh.id);
+				createMesh(getTheName, startSplit[parseInt(this.id)],function (mesh){
 				scene.add(mesh)});
 			 }
 			
