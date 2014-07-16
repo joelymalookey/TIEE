@@ -67,13 +67,15 @@
 					}	
 				}
 			}
-			function createMesh(getTheNames, onLoaded){
+			function createMesh(getTheNames,startSplits,onLoaded){
+				
 				loader = new THREE.STLLoader();		
 				loader.addEventListener('load', function (event) {
 						geometry=event.content;
 						mesh = new THREE.Mesh( geometry,  new THREE.MeshNormalMaterial() );
-						mesh.position.set( Math.random(20), 0, 0 );
-						mesh.rotation.set( - Math.PI / Math.random(3), Math.random(3), 0 );
+						startPos=startSplits.split(" ");
+						mesh.position.set( parseInt(startPos[0]), parseInt(startPos[1]), parseInt(startPos[2]));
+						mesh.rotation.set( 0,0,0 );
 						mesh.id=getTheNames;
 						onLoaded(mesh);
 					});
